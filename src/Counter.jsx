@@ -23,6 +23,7 @@ const Counter = () => {
 
   return (
     <div>
+      <h1>Test</h1>
       {/* Displaying the counter value */}
       <h2>Counter Value: {counter}</h2>
       {/* Clicking this button triggers the handleIncrement function */}

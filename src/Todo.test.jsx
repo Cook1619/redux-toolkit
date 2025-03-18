@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import Todo from "./Todo";
 import { addTodo, removeTodo, toggleTodo } from "./redux/reducers/todoSlice";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 const mockStore = configureStore([]);
 
@@ -29,7 +29,9 @@ describe("Todo Component", () => {
       </Provider>
     );
 
-    // Check if todos are rendered
+    // Check if todos are rendered in the table
+    const rows = screen.getAllByRole("row");
+    expect(rows).toHaveLength(3); // 1 header row + 2 todo rows
     expect(screen.getByText("Test Todo 1")).toBeInTheDocument();
     expect(screen.getByText("Test Todo 2")).toBeInTheDocument();
   });
@@ -77,10 +79,10 @@ describe("Todo Component", () => {
       </Provider>
     );
 
-    const todoItem = screen.getByText("Test Todo 1");
+    const checkboxes = screen.getAllByRole("checkbox");
 
     // Simulate toggling the first todo
-    fireEvent.click(todoItem);
+    fireEvent.click(checkboxes[0]);
 
     // Check if the toggleTodo action was dispatched
     expect(store.dispatch).toHaveBeenCalledWith(toggleTodo({ id: 1 }));
